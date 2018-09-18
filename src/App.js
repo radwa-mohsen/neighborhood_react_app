@@ -5,7 +5,16 @@ import Map from './Map'
 
 class App extends Component {
   state = {
-    className : "available-locations"
+    className : "available-locations",
+    locations :[
+      {title: "San Stifano" ,location :{lat:31.247011 ,lng:29.969717299999957 }},
+      {title:"Al Agamy Al Bahri" ,location :{lat:31.0940819 ,lng:29.767780899999934 }},
+      {title:"Montaza Palace" ,location :{lat:  31.2884965,lng:30.015969600000062 }},
+      {title: "Bibliotheca Alexandrina",location :{lat:31.2088705 ,lng: 29.909201199999984}},
+      {title: "Sidi Gabir",location :{lat: 31.22133479999999,lng:29.937915100000055  }},
+      {title:"Sidi Bishr" ,location :{lat: 31.2555336,lng:29.98320000000001 }},
+      {title: "DownTown Mall",location :{lat: 31.1684721,lng:29.936801599999967}}
+    ]
   }
   componentDidMount() {
     
@@ -15,25 +24,17 @@ class App extends Component {
   }
   
   
-  initMap (){
-    const google = window.google;
+  initMap = ()=>{
+   
+    const {locations} = this.state
+    const google = window.google
    let map;
     let markers = [];
     map = new google.maps.Map(document.getElementById('map'),{
       center : {lat:30.9991934 , lng : 29.793309700000002},
-      zoom :10
+      zoom :13
   });
-//}
-
-  var locations = [
-    {title: "San Stifano" ,location :{lat:31.247011 ,lng:29.969717299999957 }},
-    {title:"Al Agamy Al Bahri" ,location :{lat:31.0940819 ,lng:29.767780899999934 }},
-    {title:"Montaza Palace" ,location :{lat:  31.2884965,lng:30.015969600000062 }},
-    {title: "Bibliotheca Alexandrina",location :{lat:31.2088705 ,lng: 29.909201199999984}},
-    {title: "Sidi Gabir",location :{lat: 31.22133479999999,lng:29.937915100000055  }},
-    {title:"Sidi Bishr" ,location :{lat: 31.2555336,lng:29.98320000000001 }},
-    {title: "DownTown Mall",location :{lat: 31.1684721,lng:29.936801599999967}}
-  ];
+ 
   var largeInfowindow = new google.maps.InfoWindow();
   var bounds = new google.maps.LatLngBounds();
   for (let i = 0; i < locations.length; i++) {
