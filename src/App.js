@@ -18,71 +18,61 @@ class App extends Component {
   initMap (){
     const google = window.google;
    let map;
-   // let markers = [];
+    let markers = [];
     map = new google.maps.Map(document.getElementById('map'),{
-      center : {lat:31.099761 , lng : 29.770261},
-      zoom :13
+      center : {lat:30.9991934 , lng : 29.793309700000002},
+      zoom :10
   });
-}
+//}
 
-  // var locations = [
-  //   {title: "place1" ,location :{lat:31.101096 ,lng:29.771991 }},
-  //   {title:"place2" ,location :{lat:31.100886 ,lng:29.775525 }},
-  //   {title:"place3" ,location :{lat:  31.102839,lng:29.776232 }},
-  //   {title: "place4",location :{lat:31.100986 ,lng: 29.773441}},
-  //   {title: "place5",location :{lat: 31.102952,lng:29.778997  }},
-  //   {title:"place6" ,location :{lat:  31.105748,lng:29.776991 }},
-  //   {title: "place7",location :{lat: 31.105883,lng:29.783463 }}
-  // ];
-  // var largeInfowindow = new google.maps.InfoWindow();
-  // var bounds = new google.maps.LatLngBounds();
-  // for (let i = 0; i < locations.length; i++) {
-  //   var position = locations[i].location;
-  //   var title = locations[i].title;
-  //   var marker = new google.maps.Marker({
-  //       position:position,
-  //       map:map,
-  //       title:title,
-  //       animation : google.maps.Animation.DROP,
-  //       id:i
+  var locations = [
+    {title: "San Stifano" ,location :{lat:31.247011 ,lng:29.969717299999957 }},
+    {title:"Al Agamy Al Bahri" ,location :{lat:31.0940819 ,lng:29.767780899999934 }},
+    {title:"Montaza Palace" ,location :{lat:  31.2884965,lng:30.015969600000062 }},
+    {title: "Bibliotheca Alexandrina",location :{lat:31.2088705 ,lng: 29.909201199999984}},
+    {title: "Sidi Gabir",location :{lat: 31.22133479999999,lng:29.937915100000055  }},
+    {title:"Sidi Bishr" ,location :{lat: 31.2555336,lng:29.98320000000001 }},
+    {title: "DownTown Mall",location :{lat: 31.1684721,lng:29.936801599999967}}
+  ];
+  var largeInfowindow = new google.maps.InfoWindow();
+  var bounds = new google.maps.LatLngBounds();
+  for (let i = 0; i < locations.length; i++) {
+    var position = locations[i].location;
+    var title = locations[i].title;
+    var marker = new google.maps.Marker({
+        position:position,
+        map:map,
+        title:title,
+        animation : google.maps.Animation.DROP,
+        id:i
        
-  //   })
-  //   markers.push(marker);
+    })
+    markers.push(marker);
     
-  //   bounds.extend(marker.position);
-  //   marker.addListener('click',function(){
-  //       populateInfoWindow(this,largeInfowindow)
-  //   })
-  //   function populateInfoWindow (marker,infoWindow){
-  //    if (infoWindow.marker != marker) {
-  //        infoWindow.marker = marker;
-  //        infoWindow.setContent('<div>' + marker.position + '</div>');
-  //        infoWindow.open(map,marker);
-  //        infoWindow.addListener('closeclick',function(){
-  //            infoWindow.setContent(null)
-  //        })
-  //    }
-  //   }
-  // }
-  // map.fitBounds(bounds);
-  // }
+    bounds.extend(marker.position);
+    marker.addListener('click',function(){
+        populateInfoWindow(this,largeInfowindow)
+    })
+    function populateInfoWindow (marker,infoWindow){
+     if (infoWindow.marker != marker) {
+         infoWindow.marker = marker;
+         infoWindow.setContent('<div>' + marker.position + '</div>');
+         infoWindow.open(map,marker);
+         infoWindow.addListener('closeclick',function(){
+             infoWindow.setContent(null)
+         })
+     }
+    }
+  }
+  map.fitBounds(bounds);
+  }
   render() {
     return (
       <div className="App">
         <Filter className={this.state.className} />
-        <div className="container">
-        <div className="wrapper"><button  className="hamburger" onClick={()=>{
-          if(this.state.className ==="available-locations"){
-            this.setState({className:"hidden"})
-          }else{
-            this.setState({className:"available-locations"})
-          }
-         }}>&#9776;</button>
-        </div>
+
         <div id="map">
         </div>
-        </div>
-        
       </div>
     );
   }

@@ -41,34 +41,39 @@ h2{
 .filter-btn{
   color : whitesmoke;
   background-color: lightseagreen;
+  font-size: 15px;
+  vertical-align: middle;
 }
-
+.filter-input{
+  height : 27px;
+}
 #map{
   position: absolute;
   height:100%;
-  width:80%;
-  left: 20%;
-  top:0;
+  width:100%;
+  left: 0;
+  top:50px;
 }
 .wrapper{
  
-  width:80%;
-  left:20%;
-  z-index: 100;
+  width:600%;
+  left:0;
+  z-index: 3;
   background-color: black;
   height: 50px;
   position: absolute;
 }
 .hamburger{
     
-    z-index: 100;
+    z-index: 2;
     position: absolute;
-    left: 0;
-    color: cornflowerblue;
+    left: 17%;
+    color: lightseagreen;
     background-color: transparent;
     font-size: 30px;
     cursor: pointer;
     border: none;
+
     
 }
 .hidden{
@@ -77,6 +82,20 @@ left:-20%;
 position: fixed;
 }
 
-.container{
-  width: 100%;
+.search-locations-bar{
+  position: absolute;
+  z-index: 4;
+  padding-left: 3%;
+}
+
+.town{
+  color:  lightseagreen;
+  position: absolute;
+  left: 20%;
+  padding-top: 10px;
+  font-size: 17px;
+  font-weight: bold;
+}
+.filter-name{
+  vertical-align: top;
 }
