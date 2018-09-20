@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import MaterialIcon, {colorPalette} from 'material-icons-react';
-
-
+import escapeRegExp from 'escape-string-regexp'
+import MaterialIcon from 'material-icons-react';
 class Filter extends Component {
     state = {
         query : '',
-        className : "available-locations"
+        className : "available-locations",
+        locationsResult : this.props.locations
     }
     
 	updateQuery = (query) => {
@@ -14,10 +14,37 @@ class Filter extends Component {
 	}
 
 	clearQuery = () =>{
-		this.setState({query:''})
-	}
+        this.setState({query:''})
+    }
+    updateFilter(query){
+
+        let showingResults
+        if(query.length !==0){
+            const match = new RegExp(escapeRegExp(query),'i')
+            showingResults = this.props.locations.filter((location) => match.test(location.title))
+            
+            this.setState(()=>({
+                locationsResult : showingResults
+            }))
+            this.props.updateMarkers(showingResults)
+        }
+        else{
+            this.setState(()=>({
+                locationsResult : this.props.locations
+            }))
+            this.props.updateMarkers(this.props.locations)
+        }
+        
+    }
+
+    openContent = (loc)=>{
+        debugger
+        this.props.openContent(loc)
+    }
     render(){
         const {query} = this.state;
+        const{locationsResult} = this.state;
+      
         return(
             <div className={this.state.className}>
                {/* <div className="container"> */}
@@ -41,19 +68,20 @@ class Filter extends Component {
                                 type="text" 
                                 placeholder="Station Location"
                                 value = {query}
-                                onChange = {(event) => {this.updateQuery(event.target.value)}}
-                            />
-                            
-
-                            <button className="filter-btn"><span className="filter-name">Filter</span><MaterialIcon icon="filter_list" /></button>
-                            
+                                onChange = {(event) => {this.updateQuery(event.target.value)
+                                                       this.updateFilter(event.target.value)}}
+                            />                            
                         </form>
                     </div>
                 </div>
                 <div className="Filter-result">
-                   <ol>
-                       <li>place1</li>
-                   </ol>
+                   <ul>
+                   {locationsResult.map((location)=>(<li key={location.title}><span className="location-mark"><i className="material-icons">location_on</i></span><a className="link" href="#"
+                                                                                                                                                                    onClick={()=>{this.openContent(location.title)}} >{location.title}</a></li>
+                     ))
+                         }
+                       
+                   </ul>
                 </div>
             </div>
         );

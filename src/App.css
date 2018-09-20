@@ -1,10 +1,3 @@
-/* html {
-  box-sizing: border-box;
-
-}
-*, *:before, *:after {
-  box-sizing: inherit;
-} */
 html, body, .root {
   height: 100%;
 }
@@ -24,19 +17,20 @@ body, .App {
   height: 100%;
 }
 .App {
-  text-align: center;
+  text-align: left;
   display: flex;
 }
 
 .available-locations{
 height: 100%;
-width: 20%;
+width: 250px;
 background-color: black;
 z-index: 4;
 position: fixed;
 }
 h2{
   color: darkgray;
+  padding-left: 10px;
 }
 .filter-btn{
   color : whitesmoke;
@@ -46,6 +40,7 @@ h2{
 }
 .filter-input{
   height : 27px;
+  width: 246px;
 }
 #map{
   position: absolute;
@@ -56,7 +51,7 @@ h2{
 }
 .wrapper{
  
-  width:600%;
+  width:650%;
   left:0;
   z-index: 3;
   background-color: black;
@@ -67,7 +62,7 @@ h2{
     
     z-index: 2;
     position: absolute;
-    left: 17%;
+    left: 244px;
     color: lightseagreen;
     background-color: transparent;
     font-size: 30px;
@@ -77,25 +72,68 @@ h2{
     
 }
 .hidden{
-width: 20%;
-left:-20%;
+width: 250px;
+left:-250px;
 position: fixed;
 }
 
 .search-locations-bar{
   position: absolute;
   z-index: 4;
-  padding-left: 3%;
+
 }
 
 .town{
   color:  lightseagreen;
   position: absolute;
-  left: 20%;
+  left: 280px;
   padding-top: 10px;
   font-size: 17px;
   font-weight: bold;
 }
 .filter-name{
   vertical-align: top;
+  font-weight: bold;  
+}
+.Filter-result{
+  color: azure;
+  text-align: left;
+  position: absolute;
+  top: 100px;
+}
+.link{
+  color: azure;
+  text-decoration: none;
+}
+ul{
+  list-style-type: none;
+  padding-left: 0px;
+}
+i{
+  color:tomato;
+}
+@media screen and (max-width: 450px){
+  h2{
+    font-size: 20px;
+  }
+  .filter-result{
+    font-style: italic;
+    font-size: 10px;
+  }
+.available-locations{
+  width:200px;
+  }
+  .filter-input{
+    width: 196px;
+  }
+  .hidden{
+    width: 200px;
+    left:-200px;
+    }
+  .hamburger{
+    left:194px;
+  }
+  .town{
+    left:230px;
+  }
 }
