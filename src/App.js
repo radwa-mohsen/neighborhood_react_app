@@ -77,14 +77,16 @@ class App extends Component {
   }
 
   updateMarkers (showingResults) {
-    
     chosenLocation = showingResults
-    this.initMap()
+    markers.map(marker=>marker.setMap(null))
+    chosenLocation.map(loc=>
+      markers.filter((marker)=>marker.title === loc.title)[0].setMap(map))
   
+ 
   }
 
   openContent = (location)=>{
-    debugger
+    
     const google = window.google
    let chosenMarker = markers.filter((marker)=>marker.title === location)
    google.maps.event.trigger(chosenMarker[0], 'click');
