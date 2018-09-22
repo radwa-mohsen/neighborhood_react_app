@@ -91,7 +91,6 @@ class App extends Component {
     marker.setAnimation(google.maps.Animation.BOUNCE);
     setTimeout(function(){ marker.setAnimation('null'); }, 1000);
     marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
-    setTimeout(function(){ marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png'); }, 1500);
     const {locations} = this.state
     let location = locations.filter(loc=>loc.title === marker.title)
     if (infoWindow.marker !== marker) {
@@ -125,6 +124,7 @@ class App extends Component {
              })
         infoWindow.open(map,marker);
         infoWindow.addListener('closeclick',function(){
+        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
         infoWindow.setContent(null)
        })
      }
