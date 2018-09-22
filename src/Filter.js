@@ -62,19 +62,17 @@ class Filter extends Component {
                           role="heading"> Alexandria</span>
                 </div>
                 <div className="search-locations-bar">
-                    {/* <div className="search-location-input-wrapper"> */}
-                        <h2 tabIndex="0">Touristic Locations</h2>
-                        <form
-                            onSubmit = {(e) => e.preventDefault()}>
-                            <input 
-                                className="filter-input"
-                                type="text" 
-                                placeholder="Station Location"
-                                value = {query}
-                                onChange = {(event) => {this.updateQuery(event.target.value)
-                                                       this.updateFilter(event.target.value)}} />                        
-                        </form>
-                    {/* </div> */}
+                    <h2 tabIndex="0">Touristic Locations</h2>
+                    <form
+                        onSubmit = {(e) => e.preventDefault()}>
+                        <input 
+                            className="filter-input"
+                            type="text" 
+                            placeholder="Station Location"
+                            value = {query}
+                            onChange = {(event) => {this.updateQuery(event.target.value)
+                                                    this.updateFilter(event.target.value)}} />                        
+                    </form>
                 </div>
                 <div className="Filter-result">
                    <ul>

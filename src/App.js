@@ -72,6 +72,7 @@ class App extends Component {
         position:position,
         map:map,
         title:title,
+        icon:'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
         animation : google.maps.Animation.DROP,
         id:i
     })
@@ -85,6 +86,12 @@ class App extends Component {
   }
   // to get the information from foursquare api and then render it the the infowindow 
   populateInfoWindow = (marker,infoWindow)=>{
+    const google = window.google
+    //SET ANIMATION and color changing WHEN THE INFOWINDOW OPEN
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function(){ marker.setAnimation('null'); }, 1000);
+    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+    setTimeout(function(){ marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png'); }, 1500);
     const {locations} = this.state
     let location = locations.filter(loc=>loc.title === marker.title)
     if (infoWindow.marker !== marker) {
