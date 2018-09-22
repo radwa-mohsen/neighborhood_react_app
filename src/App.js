@@ -89,10 +89,8 @@ class App extends Component {
     let location = locations.filter(loc=>loc.title === marker.title)
     if (infoWindow.marker !== marker) {
        infoWindow.marker = marker;
-      //  let clientID = "5TKOPJNR2M5EWQAQK23IB4NU31SP1NYM2UBI13LOYAIVOIVA"
-      //  let clientSecret = "OGVH2HFI3VGFWM2I5DG2MEO13P25133A5UERAX4SRDQTUGYT"
-      var clientID = "ULJMAZZVQKOP0P54O1ZS1SJGFWTUGBC4DRPY4HQ24MHA1ZBR";
-      var clientSecret ="YGKRI11UK20KMZQXO3XIYDTP0XEPHC2B5NHSYL34LWHD0CND";
+       let clientID = "5TKOPJNR2M5EWQAQK23IB4NU31SP1NYM2UBI13LOYAIVOIVA"
+       let clientSecret = "OGVH2HFI3VGFWM2I5DG2MEO13P25133A5UERAX4SRDQTUGYT"
        let url = "https://api.foursquare.com/v2/venues/"+ location[0].venue_id + "?client_id="+clientID +"&client_secret="+clientSecret+"&v=20130815"
        fetch(url).then((response)=>{
           if (response.status !== 200) {
