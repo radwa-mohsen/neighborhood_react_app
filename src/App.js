@@ -87,6 +87,9 @@ class App extends Component {
   // to get the information from foursquare api and then render it the the infowindow 
   populateInfoWindow = (marker,infoWindow)=>{
     const google = window.google
+    markers.map((marker)=>{
+      marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
+    })
     //SET animation and color changing when the infowindow open
     marker.setAnimation(google.maps.Animation.BOUNCE);
     setTimeout(function(){ marker.setAnimation('null'); }, 1000);
@@ -97,7 +100,7 @@ class App extends Component {
        infoWindow.marker = marker;
        let clientID = "5TKOPJNR2M5EWQAQK23IB4NU31SP1NYM2UBI13LOYAIVOIVA"
        let clientSecret = "OGVH2HFI3VGFWM2I5DG2MEO13P25133A5UERAX4SRDQTUGYT"
-       let url = "https://api.foursquare.com/v2/venues/"+ location[0].venue_id + "?client_id="+clientID +"&client_secret="+clientSecret+"&v=20130815"
+      let url = "https://api.foursquare.com/v2/venues/"+ location[0].venue_id + "?client_id="+clientID +"&client_secret="+clientSecret+"&v=20130815"
        fetch(url).then((response)=>{
           if (response.status !== 200) {
                 infoWindow.setContent(`<p class="failure-content"  tabIndex="0">Sorry information about ${marker.title} can't be loaded .. please try again later<p>`);
