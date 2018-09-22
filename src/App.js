@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Filter from './Filter' 
 
-let chosenLocation = [];
+
 let map;
 let markers = [];
 class App extends Component {
@@ -50,103 +50,92 @@ class App extends Component {
   componentDidMount() {
     
     window.initMap = this.initMap;
+    // to render the script on our page
     loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyC8BrGoFKycP9JDCkNHAqbQ5BXRCLnkFbk&v=3&callback=initMap')
 
   }
   
   initMap = ()=>{
-    
+    let self = this;
     const {locations} = this.state
     const google = window.google
-  let usedLocations
-
-
     map = new google.maps.Map(document.getElementById('map'),{
       center : {lat:30.9991934 , lng : 29.793309700000002},
       zoom :13
-  });
- if(chosenLocation.length>0){
- usedLocations = chosenLocation
- }else{
-   usedLocations = locations
- }
-  var largeInfowindow = new google.maps.InfoWindow();
-  var bounds = new google.maps.LatLngBounds();
-  for (let i = 0; i < usedLocations.length; i++) {
-    var position = usedLocations[i].location;
-    var title = usedLocations[i].title;
-    var marker = new google.maps.Marker({
+  })
+  let largeInfowindow = new google.maps.InfoWindow();
+  let bounds = new google.maps.LatLngBounds();
+  for (let i = 0; i < locations.length; i++) {
+    let position = locations[i].location;
+    let title = locations[i].title;
+    let marker = new google.maps.Marker({
         position:position,
         map:map,
         title:title,
         animation : google.maps.Animation.DROP,
         id:i
-       
     })
     markers.push(marker);
-    
     bounds.extend(marker.position);
     marker.addListener('click',function(){
-        populateInfoWindow(this,largeInfowindow)
+       self.populateInfoWindow(this,largeInfowindow)
     })
-    let populateInfoWindow = (marker,infoWindow)=>{
-      const {locations} = this.state
-      let location = locations.filter(loc=>loc.title === marker.title)
-     if (infoWindow.marker !== marker) {
-         infoWindow.marker = marker;
-         let clientID = "5TKOPJNR2M5EWQAQK23IB4NU31SP1NYM2UBI13LOYAIVOIVA"
-         let clientSecret = "OGVH2HFI3VGFWM2I5DG2MEO13P25133A5UERAX4SRDQTUGYT"
-         let url = "https://api.foursquare.com/v2/venues/"+ location[0].venue_id + "?client_id="+clientID +"&client_secret="+clientSecret+"&v=20130815"
-         fetch(url).then((response)=>{
-          if (response.status !== 200) {
-            infoWindow.setContent(`<p  tabIndex="0">Sorry information about ${marker.title} can't be loaded .. please try again later<p>`);
-            return;
-        }
-               response.json().then((info)=>{
-                 
-                 let venue = info.response.venue
-                 let image = venue.bestPhoto
-                 let imageURL = image.prefix + "100x100" + image.suffix
-                 let name = venue.name
-                 let address = venue.location.formattedAddress
-                 let html = `<div class="content">
-                              <div>
-                                <h3  tabIndex="0">${name}</h3>
-                                <p  tabIndex="0">${address}</p>
-                                <a href="https://foursquare.com/v/${venue.id}" aria-label="Read more about ${name}">Read More</a>
-                              </div>
-                              <img src="${imageURL}" alt="${name}"/>
-                            </div>`
-                
-                 infoWindow.setContent(html)
-               })
-         }).catch(()=>{
-          infoWindow.setContent(`<p tabIndex="0">Sorry information about ${marker.title} can't be loaded<p>`);
-         })
-         infoWindow.open(map,marker);
-         infoWindow.addListener('closeclick',function(){
-             infoWindow.setContent(null)
-         })
-     }
-    }
   }
   map.fitBounds(bounds);
   }
-
+  // to get the information from foursquare api and then render it the the infowindow 
+  populateInfoWindow = (marker,infoWindow)=>{
+    const {locations} = this.state
+    let location = locations.filter(loc=>loc.title === marker.title)
+    if (infoWindow.marker !== marker) {
+       infoWindow.marker = marker;
+      //  let clientID = "5TKOPJNR2M5EWQAQK23IB4NU31SP1NYM2UBI13LOYAIVOIVA"
+      //  let clientSecret = "OGVH2HFI3VGFWM2I5DG2MEO13P25133A5UERAX4SRDQTUGYT"
+      var clientID = "ULJMAZZVQKOP0P54O1ZS1SJGFWTUGBC4DRPY4HQ24MHA1ZBR";
+      var clientSecret ="YGKRI11UK20KMZQXO3XIYDTP0XEPHC2B5NHSYL34LWHD0CND";
+       let url = "https://api.foursquare.com/v2/venues/"+ location[0].venue_id + "?client_id="+clientID +"&client_secret="+clientSecret+"&v=20130815"
+       fetch(url).then((response)=>{
+          if (response.status !== 200) {
+                infoWindow.setContent(`<p class="failure-content"  tabIndex="0">Sorry information about ${marker.title} can't be loaded .. please try again later<p>`);
+                return;
+            }
+          response.json().then((info)=>{
+            let venue = info.response.venue
+            let image = venue.bestPhoto
+            let imageURL = image.prefix + "100x100" + image.suffix
+            let name = venue.name
+            let address = venue.location.formattedAddress
+            let html = `<div class="content">
+                        <div>
+                          <h3  tabIndex="0">${name}</h3>
+                          <p  tabIndex="0">${address}</p>
+                          <a href="https://foursquare.com/v/${venue.id}" aria-label="Read more about ${name}">Read More</a>
+                        </div>
+                        <img src="${imageURL}" alt="${name}"/>
+                      </div>`
+            infoWindow.setContent(html)
+           })
+         }).catch(()=>{
+             infoWindow.setContent(`<p tabIndex="0" class="failure-content">Sorry information about ${marker.title} can't be loaded<p>`);
+             })
+        infoWindow.open(map,marker);
+        infoWindow.addListener('closeclick',function(){
+        infoWindow.setContent(null)
+       })
+     }
+   }
+  //to show the chosen locations on the map
   updateMarkers (showingResults) {
-    chosenLocation = showingResults
     markers.map(marker=>marker.setMap(null))
-    chosenLocation.map(loc=>
-      markers.filter((marker)=>marker.title === loc.title)[0].setMap(map))
-  }
-
+    showingResults.map(loc=>
+    markers.filter((marker)=>marker.title === loc.title)[0].setMap(map))
+   }
+  //to open the infowindow of the chosen location from the map or the filter list
   openContent = (location)=>{
-    
-    const google = window.google
-   let chosenMarker = markers.filter((marker)=>marker.title === location)
-   google.maps.event.trigger(chosenMarker[0], 'click');
-
-  }
+   const google = window.google
+    let chosenMarker = markers.filter((marker)=>marker.title === location)
+    google.maps.event.trigger(chosenMarker[0], 'click');
+   }
   render() {
     return (
       <div className="App">
@@ -159,15 +148,14 @@ class App extends Component {
         </div>
       </div>
     );
-  }
+   }
 }
-
+//to load the script to get the map
 function loadJS(src) {
   var ref = window.document.getElementsByTagName("script")[0];
   var script = window.document.createElement("script");
   script.src = src;
   script.async = true;
   ref.parentNode.insertBefore(script, ref);
-
 }
 export default App;
