@@ -96,11 +96,7 @@ class App extends Component {
          infoWindow.marker = marker;
          let clientID = "5TKOPJNR2M5EWQAQK23IB4NU31SP1NYM2UBI13LOYAIVOIVA"
          let clientSecret = "OGVH2HFI3VGFWM2I5DG2MEO13P25133A5UERAX4SRDQTUGYT"
-        //  let clientID = "ULJMAZZVQKOP0P54O1ZS1SJGFWTUGBC4DRPY4HQ24MHA1ZBR";
-        //  let clientSecret ="YGKRI11UK20KMZQXO3XIYDTP0XEPHC2B5NHSYL34LWHD0CND";
-         
          let url = "https://api.foursquare.com/v2/venues/"+ location[0].venue_id + "?client_id="+clientID +"&client_secret="+clientSecret+"&v=20130815"
-         console.log(url)
          fetch(url).then((response)=>{
           if (response.status !== 200) {
             infoWindow.setContent(`<p  tabIndex="0">Sorry information about ${marker.title} can't be loaded .. please try again later<p>`);
