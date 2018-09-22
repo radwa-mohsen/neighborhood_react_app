@@ -12,7 +12,7 @@ To install you first need to download by **git clone** (https://github.com/radwa
 
 or
 
-Check the online demo [here]https://radwa-mohsen.github.io/neighborhood_react_app/)
+Check the online demo [here](https://radwa-mohsen.github.io/neighborhood_react_app/)
 
 ### Google Maps
 
