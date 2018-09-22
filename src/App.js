@@ -100,6 +100,7 @@ class App extends Component {
         //  let clientSecret ="YGKRI11UK20KMZQXO3XIYDTP0XEPHC2B5NHSYL34LWHD0CND";
          
          let url = "https://api.foursquare.com/v2/venues/"+ location[0].venue_id + "?client_id="+clientID +"&client_secret="+clientSecret+"&v=20130815"
+         console.log(url)
          fetch(url).then((response)=>{
           if (response.status !== 200) {
             infoWindow.setContent(`<p  tabIndex="0">Sorry information about ${marker.title} can't be loaded .. please try again later<p>`);
