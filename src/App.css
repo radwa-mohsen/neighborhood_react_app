@@ -112,6 +112,14 @@ ul{
 i{
   color:tomato;
 }
+.content{
+  display: flex;
+  max-width: 350px;
+  /* overflow-wrap: break-word; */
+ 
+}
+
+
 @media screen and (max-width: 450px){
   h2{
     font-size: 20px;
