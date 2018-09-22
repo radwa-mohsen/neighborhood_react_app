@@ -38,7 +38,6 @@ class Filter extends Component {
     }
 
     openContent = (loc)=>{
-        debugger
         this.props.openContent(loc)
     }
     render(){
@@ -48,18 +47,18 @@ class Filter extends Component {
         return(
             <div className={this.state.className}>
                {/* <div className="container"> */}
-        <div className="wrapper"><button  className="hamburger" onClick={()=>{
+        <div className="wrapper"><button aria-label="side menu" className="hamburger" onClick={()=>{
           if(this.state.className ==="available-locations"){
             this.setState({className:"hidden"})
           }else{
             this.setState({className:"available-locations"})
           }
-         }}>&#9776;</button><span className="town">Alexandria</span>
+         }}>&#9776;</button><span className="town" tabIndex="0" aria-label="city name Alexandria"role="heading"> Alexandria</span>
         {/* </div> */}
         </div>
                 <div className="search-locations-bar">
                     <div className="search-location-input-wrapper">
-                        <h2>Bart Locations</h2>
+                        <h2 tabIndex="0">Bart Locations</h2>
                         <form
                         onSubmit = {(e) => e.preventDefault()}
                         >

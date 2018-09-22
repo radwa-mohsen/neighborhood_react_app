@@ -94,15 +94,15 @@ class App extends Component {
       let location = locations.filter(loc=>loc.title === marker.title)
      if (infoWindow.marker !== marker) {
          infoWindow.marker = marker;
-         let clientID = "5TKOPJNR2M5EWQAQK23IB4NU31SP1NYM2UBI13LOYAIVOIVA"
-         let clientSecret = "OGVH2HFI3VGFWM2I5DG2MEO13P25133A5UERAX4SRDQTUGYT"
-        //  let clientID = "ULJMAZZVQKOP0P54O1ZS1SJGFWTUGBC4DRPY4HQ24MHA1ZBR";
-        //  let clientSecret ="YGKRI11UK20KMZQXO3XIYDTP0XEPHC2B5NHSYL34LWHD0CND";
+        //  let clientID = "5TKOPJNR2M5EWQAQK23IB4NU31SP1NYM2UBI13LOYAIVOIVA"
+        //  let clientSecret = "OGVH2HFI3VGFWM2I5DG2MEO13P25133A5UERAX4SRDQTUGYT"
+         let clientID = "ULJMAZZVQKOP0P54O1ZS1SJGFWTUGBC4DRPY4HQ24MHA1ZBR";
+         let clientSecret ="YGKRI11UK20KMZQXO3XIYDTP0XEPHC2B5NHSYL34LWHD0CND";
          
          let url = "https://api.foursquare.com/v2/venues/"+ location[0].venue_id + "?client_id="+clientID +"&client_secret="+clientSecret+"&v=20130815"
          fetch(url).then((response)=>{
           if (response.status !== 200) {
-            infoWindow.setContent("<p>Sorry information about that place can't be loaded .. please try again later<p>");
+            infoWindow.setContent(`<p  tabIndex="0">Sorry information about ${marker.title} can't be loaded .. please try again later<p>`);
             return;
         }
                response.json().then((info)=>{
@@ -114,9 +114,9 @@ class App extends Component {
                  let address = venue.location.formattedAddress
                  let html = `<div class="content">
                               <div>
-                                <h3>${name}</h3>
-                                <p>${address}</p>
-                                <a href="https://foursquare.com/v/${venue.id}">Read More</a>
+                                <h3  tabIndex="0">${name}</h3>
+                                <p  tabIndex="0">${address}</p>
+                                <a href="https://foursquare.com/v/${venue.id}" aria-label="Read more about ${name}">Read More</a>
                               </div>
                               <img src="${imageURL}" alt="${name}"/>
                             </div>`
@@ -124,7 +124,7 @@ class App extends Component {
                  infoWindow.setContent(html)
                })
          }).catch(()=>{
-          infoWindow.setContent("<p>Sorry information about that place can't be loaded<p>");
+          infoWindow.setContent(`<p tabIndex="0">Sorry information about ${marker.title} can't be loaded<p>`);
          })
          infoWindow.open(map,marker);
          infoWindow.addListener('closeclick',function(){
@@ -158,7 +158,7 @@ class App extends Component {
                 updateMarkers={(showingResults)=>{this.updateMarkers(showingResults)}} 
                 openContent={(loc)=>{this.openContent(loc)}}/>
 
-        <div id="map">
+        <div id="map" tabIndex="0" aria-label="map of restaurant" role="application">
         </div>
       </div>
     );
