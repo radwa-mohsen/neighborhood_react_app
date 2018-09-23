@@ -164,6 +164,11 @@ function loadJS(src) {
   var script = window.document.createElement("script");
   script.src = src;
   script.async = true;
+  script.defer = true;
+  script.onerror = function (){
+    let message = "we are sorry .. Google map can't load"
+    document.getElementById('map').textContent = alert(message)
+  }
   ref.parentNode.insertBefore(script, ref);
 }
 export default App;
