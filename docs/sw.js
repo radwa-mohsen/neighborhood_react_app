@@ -6,8 +6,8 @@ self.addEventListener('install', function(event) {
     caches.open(staticCacheName).then(function(cache) {
       return cache.addAll([
         "/index.html",
-        "/static/css/main.2ffe1a91.css",
-        '/static/js/main.18072b20.js'
+        "/neighborhood_react_app/static/css/main.2ffe1a91.css",
+        '/neighborhood_react_app/static/js/main.18072b20.js'
       ])
     .then(() => console.log('Assets added to cache'))
      .catch(err => console.log('Error while fetching assets', err))
