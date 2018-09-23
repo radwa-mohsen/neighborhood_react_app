@@ -48,14 +48,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    
+    window.gm_authFailure =()=>{ alert('There is an error happen in loading the map'); };
     window.initMap = this.initMap;
     // to render the script on our page
     loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyC8BrGoFKycP9JDCkNHAqbQ5BXRCLnkFbk&v=3&callback=initMap')
 
   }
-  
+ 
   initMap = ()=>{
+
     let self = this;
     const {locations} = this.state
     const google = window.google
@@ -146,7 +147,7 @@ class App extends Component {
    }
   render() {
     return (
-      <div className="App">
+      <div className="App" aria-label="neighborhood map application">
         <Filter className={this.state.className} 
                 locations = {this.state.locations} 
                 updateMarkers={(showingResults)=>{this.updateMarkers(showingResults)}} 
@@ -160,6 +161,7 @@ class App extends Component {
 }
 //to load the script to get the map
 function loadJS(src) {
+  
   var ref = window.document.getElementsByTagName("script")[0];
   var script = window.document.createElement("script");
   script.src = src;
@@ -171,4 +173,7 @@ function loadJS(src) {
   }
   ref.parentNode.insertBefore(script, ref);
 }
+
+
+
 export default App;

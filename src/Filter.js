@@ -66,9 +66,10 @@ class Filter extends Component {
                     <form
                         onSubmit = {(e) => e.preventDefault()}>
                         <input 
+                            aria-label="filter with your location "
                             className="filter-input"
                             type="text" 
-                            placeholder="Station Location"
+                            placeholder="Filter Location"
                             value = {query}
                             onChange = {(event) => {this.updateQuery(event.target.value)
                                                     this.updateFilter(event.target.value)}} />                        
