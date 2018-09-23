@@ -1,6 +1,7 @@
 
 export default function register() {
-  const swUrl = `${process.env.PUBLIC_URL}/sw.js`;
+  const swUrl = `${process.env.PUBLIC_URL}/neighborhood_react_app/sw.js`;
+  debugger
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
       navigator.serviceWorker.register(swUrl).then(function(registration) {
